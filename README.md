@@ -2,7 +2,7 @@
 
 ## Desafio 1
 
-Execute os seguintes comandos para
+Execute na ordem os seguintes comandos para rodar o desafio 1
 
 ```
 cd ./Desafio1/
