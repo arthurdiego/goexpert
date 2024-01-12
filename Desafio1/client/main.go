@@ -15,7 +15,8 @@ type Quotation struct {
 
 func main() {
 	// Criar um contexto com timeout de 300ms
-	ctx, cancel := context.WithTimeout(context.Background(), 300*time.Millisecond)
+	ctx := context.Background()
+	ctx, cancel := context.WithTimeout(ctx, 300*time.Millisecond)
 	defer cancel()
 
 	// Criar cliente HTTP

@@ -39,8 +39,8 @@ func main() {
 	http.ListenAndServe(":8080", nil)
 }
 
-func handleCotacao(w http.ResponseWriter, _ *http.Request) {
-	ctx, cancel := context.WithTimeout(context.Background(), 200*time.Millisecond)
+func handleCotacao(w http.ResponseWriter, r *http.Request) {
+	ctx, cancel := context.WithTimeout(r.Context(), 200*time.Millisecond)
 	defer cancel()
 
 	exchangeRate, err := getExchangeRate(ctx)
