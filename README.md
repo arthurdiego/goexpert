@@ -2,7 +2,7 @@
 
 ## Desafio 1
 
-Execute na ordem os seguintes comandos para rodar o desafio 1, com maiores informações no:
+Execute na ordem os seguintes comandos para rodar o desafio 1, com maiores informações em: https://github.com/arthurdiego/goexpert/blob/main/desafio1/info.txt
 
 ```
 cd ./desafio1/
@@ -12,7 +12,7 @@ go run ./client/main.go
 
 ## Desafio 1
 
-Execute na ordem os seguintes comandos para rodar o desafio 2
+Execute na ordem os seguintes comandos para rodar o desafio 2, com maiores informações em: https://github.com/arthurdiego/goexpert/blob/main/desafio2/info.txt
 
 ```
 cd ./desafio2/
