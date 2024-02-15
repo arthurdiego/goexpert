@@ -5,7 +5,7 @@
 Execute na ordem os seguintes comandos para rodar o desafio 1
 
 ```
-cd ./Desafio1/
+cd ./desafio1/
 go run ./server/main.go
 go run ./client/main.go
 ```
