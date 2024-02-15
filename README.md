@@ -10,7 +10,7 @@ go run ./server/main.go
 go run ./client/main.go
 ```
 
-## Desafio 1
+## Desafio 2
 
 Execute na ordem os seguintes comandos para rodar o desafio 2, com maiores informações em: https://github.com/arthurdiego/goexpert/blob/main/desafio2/info.txt
 
