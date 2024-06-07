@@ -1,6 +1,7 @@
-go 1.21.4
+go 1.22.3
 
 use (
 	./desafio1
 	./desafio2
+	./desafio3
 )

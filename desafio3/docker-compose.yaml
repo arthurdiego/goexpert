@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: orders
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    ports:
+      - 3306:3306
+    volumes:
+      - ./.docker/mysql:/var/lib/mysql
+      - ./internal/infra/database/migrations:/docker-entrypoint-initdb.d
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+  migrate:
+    image: mysql:5.7
+    container_name: migrate
+    depends_on:
+      - mysql
+    volumes:
+      - ./internal/infra/database/migrations:/migrations
+    entrypoint: >
+      bash -c "
+      sleep 30;
+      mysql -h mysql -u root -proot orders < /migrations/0001_orders.up.sql;
+      "

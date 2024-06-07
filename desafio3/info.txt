@@ -1,0 +1,40 @@
+Agora é a hora de botar a mão na massa. Para este desafio, você precisará criar o usecase de listagem das orders.
+Esta listagem precisa ser feita com:
+- Endpoint REST (GET /order)
+- Service ListOrders com GRPC
+- Query ListOrders GraphQL
+Não esqueça de criar as migrações necessárias e o arquivo api.http com a request para criar e listar as orders.
+
+Para a criação do banco de dados, utilize o Docker (Dockerfile / docker-compose.yaml), com isso ao rodar o comando docker compose up tudo deverá subir, preparando o banco de dados.
+Inclua um README.md com os passos a serem executados no desafio e a porta em que a aplicação deverá responder em cada serviço.
+
+# WIRE
+Adicionar o NewListOrdersUseCase
+cd cmd/ordersystem
+wire (esse comando gera o wire_gen.go)
+
+# GRPC
+adicionar message ListOrdersResponse e o ListOrders ao OrderService
+protoc --go_out=. --go-grpc_out=. internal/infra/grpc/protofiles/order.proto
+
+# GRAPHQL
+Mudar packages e diretórios no gqlgen.yml para internal/infra/graph
+Mudar o desafio3/internal/infra/graph/resolver.go para acrescentar listOrders
+go run github.com/99designs/gqlgen gernerate
+
+
+--- EXECUTAR
+docker-compose up -d
+cd cmd/ordersystem
+go run main.go wire_gen.go
+
+# Funções via WEB
+Ir na pasta api e fazer o Send Request para a função desejada
+
+# GRPC
+evans -r repl
+package pb
+service OrderService
+call ListOrders
+
+# GRAPHQL
