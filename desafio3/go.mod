@@ -6,6 +6,7 @@ require (
 	github.com/99designs/gqlgen v0.17.47
 	github.com/go-chi/chi/v5 v5.0.12
 	github.com/go-sql-driver/mysql v1.8.1
+	github.com/golang-migrate/migrate/v4 v4.17.1
 	github.com/mattn/go-sqlite3 v1.14.22
 	github.com/streadway/amqp v1.1.0
 	github.com/stretchr/testify v1.9.0
@@ -22,6 +23,8 @@ require (
 	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
+	github.com/hashicorp/errwrap v1.1.0 // indirect
+	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/hashicorp/golang-lru/v2 v2.0.7 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/magiconair/properties v1.8.7 // indirect

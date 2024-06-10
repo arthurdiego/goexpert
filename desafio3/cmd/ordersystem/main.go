@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"log"
 	"net"
 	"net/http"
 
@@ -19,8 +20,10 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 
-	// mysql
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/golang-migrate/migrate/v4"
+	"github.com/golang-migrate/migrate/v4/database/mysql"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
 )
 
 func main() {
@@ -34,6 +37,8 @@ func main() {
 		panic(err)
 	}
 	defer db.Close()
+
+	migration(db)
 
 	rabbitMQChannel := getRabbitMQChannel()
 
@@ -86,4 +91,61 @@ func getRabbitMQChannel() *amqp.Channel {
 		panic(err)
 	}
 	return ch
+}
+
+func migration(db *sql.DB) {
+	driver, err := mysql.WithInstance(db, &mysql.Config{})
+	if err != nil {
+		log.Fatalf("Erro ao criar instância do driver MySQL: %v", err)
+	}
+
+	// Instância do Migrator
+	m, err := migrate.NewWithDatabaseInstance(
+		"file://../../internal/infra/database/migrations",
+		"mysql", driver)
+	if err != nil {
+		log.Fatalf("Erro ao criar instância do migrator: %v", err)
+	}
+
+	err = m.Down()
+	if err != nil && err != migrate.ErrNoChange {
+		log.Fatalf("Erro ao desfazer migração: %v", err)
+	}
+
+	err = m.Up()
+	if err != nil && err != migrate.ErrNoChange {
+		log.Fatalf("Erro ao executar migração: %v", err)
+	}
+
+	// fmt.Println("Migração executada com sucesso")
+
+	// version, dirty, err := m.Version()
+	// if err != nil {
+	// 	log.Fatalf("Erro ao verificar versão atual do banco de dados: %v", err)
+	// }
+
+	// if dirty {
+	// 	log.Printf("O banco de dados está em um estado sujo (dirty)")
+	// } else {
+	// 	log.Printf("Versão atual do banco de dados: %d", version)
+	// }
+
+	// rows, err := db.Query("SHOW TABLES")
+	// if err != nil {
+	// 	log.Fatalf("Erro ao executar SHOW TABLES: %v", err)
+	// }
+	// defer rows.Close()
+
+	// fmt.Println("Tabelas no banco de dados:")
+	// for rows.Next() {
+	// 	var tableName string
+	// 	err := rows.Scan(&tableName)
+	// 	if err != nil {
+	// 		log.Fatalf("Erro ao ler nome da tabela: %v", err)
+	// 	}
+	// 	fmt.Println(tableName)
+	// }
+	// if err := rows.Err(); err != nil {
+	// 	log.Fatalf("Erro ao iterar sobre linhas do resultado: %v", err)
+	// }
 }
