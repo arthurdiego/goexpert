@@ -1,0 +1,19 @@
+docker-compose up -d ou docker-compose up -d
+Ou pelo VSCODE/Docker/mysql atach shell ou pelo terminal docker-compose exec mysql bash
+mysql -u root -p goexpert
+mysql -u root -proot -D goexpert
+
+CREATE TABLE IF NOT EXISTS products (id VARCHAR(255),name VARCHAR(80),price DECIMAL(10,2),PRIMARY KEY (id));
+delete from products where name='Notebook';
+
+	if err != nil {
+		panic(err)
+	}
+	_, err = db.Exec(`
+		CREATE TABLE IF NOT EXISTS products (
+			id VARCHAR(255),
+			name VARCHAR(80),
+			price DECIMAL(10,2),
+			PRIMARY KEY (id)
+		);
+	`)

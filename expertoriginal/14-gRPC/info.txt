@@ -1,0 +1,23 @@
+https://grpc.io/docs/protoc-installation/
+apt install -y protobuf-compiler
+protoc --version
+https://grpc.io/docs/languages/go/quickstart/
+go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28
+go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
+
+protoc --go_out=. --go-grpc_out=.  proto/course_category.proto
+
+go install github.com/ktr0731/evans@latest
+
+cd ./14-gRPC
+go run cmd/server/main.go
+evans -r repl
+package pb
+service CategoryService
+call CreateCategory
+
+sudo apt-get update
+sudo apt-get install sqlite3
+
+sqlite3 ./db.sqlite
+create table categories (id string pk, name string, description string);
